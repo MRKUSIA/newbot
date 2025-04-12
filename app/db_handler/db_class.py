@@ -1,7 +1,8 @@
 import sqlite3
+import datetime
 
 def create_connector():
-    conection = None
+    connection = None
     try:
         connection = sqlite3.connect('database.db')
         print("Подключение произошло успешно!")
@@ -11,22 +12,29 @@ def create_connector():
 
 
 def create_user(user_id: int,
-                 username: int,
                  full_name:str = None):
     conn = create_connector()
     cursor = conn.cursor()
 
-    find_user = """ SELET * FROM users WHERE users WHERE user_id = ?"""
+    find_user = """ SELECT * FROM users WHERE user_id = ?"""
 
-    cursor.execute(find_user, (user_id))
+    cursor.execute(find_user, (user_id,))
     user = cursor.fetchone()
 
-    if not user:
-        req_date = str((datetime.datetime.now()))
-        create_user = """INSERT INTO users (user_id,full_name, req_date)"
-        VALUES (?, ?,   datetime('now))"""
-        cursor.execute(create_user, (user_id, full_name,))
-        conn.commit()
-        return user
+    if user:
+        print("Пользователь уже существует")
+        return False
     
-    crate_user(1, "p1n0f10")
+    create_at = datetime.datetime.now()
+    update_at = datetime.datetime.now()
+    balance = 0
+
+    create_user = """INSERT INTO users (user_id, full_name, balanse, create_at, update_at)
+    VALUES (?, ?, ?, ?, ?)"""
+    cursor.execute(create_user, (user_id, full_name, balance, create_at, update_at))
+    
+    conn.commit()
+    return True
+
+
+create_user(2, "p1n0k10")
