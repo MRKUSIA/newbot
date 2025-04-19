@@ -18,14 +18,10 @@ ABOUT_ME = """Бот MrJohn 🚨
 def create_profile_message(user: dict):
     USER_MESSAGE = "Тестовый текст"
     if user:
-        USER_MESSAGE = f"""Привет, {user["name"]}! 🥋
+        USER_MESSAGE = f"""Привет, {user[2]}! 🥋
 
 Сейчас: {datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")} ⏳
 
-У вас на балансе: {user["balance"]} руб 💵
+У вас на балансе: {user[3]} руб 💵
     """
-        if user["id"] in ADMINS:
-            USER_MESSAGE += """
-            
-Вы обладаете правами администратора!"""
     return USER_MESSAGE

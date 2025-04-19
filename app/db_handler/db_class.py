@@ -1,7 +1,7 @@
 import sqlite3
 import datetime
 
-def create_connector():
+def create_connection():
     connection = None
     try:
         connection = sqlite3.connect('database.db')
@@ -13,13 +13,10 @@ def create_connector():
 
 def create_user(user_id: int,
                  full_name:str = None):
-    conn = create_connector()
+    conn = create_connection()
     cursor = conn.cursor()
 
-    find_user = """ SELECT * FROM users WHERE user_id = ?"""
-
-    cursor.execute(find_user, (user_id,))
-    user = cursor.fetchone()
+    user = get_user(user_id)
 
     if user:
         print("Пользователь уже существует")
@@ -36,5 +33,86 @@ def create_user(user_id: int,
     conn.commit()
     return True
 
+def get_user (user_id: int) -> object:
+    conn = create_connection()
+    cursor = conn.cursor()
 
-create_user(2, "p1n0k10")
+    find_user = """SELECT * FROM users WHERE user_id = ? """
+
+    cursor.execute(find_user, (user_id))
+    user = cursor.fethone()
+    print(user)
+    conn.commit()
+
+    return user
+
+if __name__ == "__main__":
+    create_user(2, "p1n0k10")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
