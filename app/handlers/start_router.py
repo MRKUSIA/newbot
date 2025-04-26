@@ -16,7 +16,7 @@ async def cmd_start(message: Message):
     create_user(user.id, user.username)
     await message.answer('Запуск сообщения по' + \
         ' команде /start используя фильтр ' + \
-            'CommandStart()',
+            'CommandStart() upd test',
             reply_markup=main_kb(message.from_user.id))
 
 
